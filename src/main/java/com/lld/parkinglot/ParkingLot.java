@@ -1,47 +1,38 @@
 package com.lld.parkinglot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingLot {
 
-	private String id;
-	private VehicleType type;
-	private boolean isOccupied;
+	private List<ParkingFloor> parkingFloors;
+	private List<ParkingTicket> issuedTickets;
 
-	public ParkingLot(String id, VehicleType type) {
-        this.id = id;
-        this.type = type;
-        this.isOccupied = false;
-    }
-
-	public void occupySpot() {
-		isOccupied = true;
+	public ParkingLot() {
+		this.parkingFloors = new ArrayList<>();
+		this.issuedTickets = new ArrayList<>();
 	}
 
-	public void freeSpot() {
-		isOccupied = false;
+	public ParkingSpot findAvailableSpot(VehicleType type) {
+		return null;
 	}
 
-	public String getId() {
-		return id;
+	public ParkingTicket issueTicket(Vehicle vehicle) {
+		ParkingSpot spot = findAvailableSpot(vehicle.getType());
+		if (spot != null) {
+			spot.occupySpot();
+			ParkingTicket ticket = new ParkingTicket(generateTicketId());
+			issuedTickets.add(ticket);
+			return ticket;
+		}
+		return null;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void processPayment(ParkingTicket ticket, double fee) {
+		ticket.paymentDone(fee);
 	}
 
-	public VehicleType getType() {
-		return type;
+	private String generateTicketId() {
+		return "TICKET_" + System.currentTimeMillis();
 	}
-
-	public void setType(VehicleType type) {
-		this.type = type;
-	}
-
-	public boolean isOccupied() {
-		return isOccupied;
-	}
-
-	public void setOccupied(boolean isOccupied) {
-		this.isOccupied = isOccupied;
-	}
-
 }
