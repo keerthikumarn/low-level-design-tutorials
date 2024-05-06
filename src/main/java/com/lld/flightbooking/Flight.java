@@ -1,9 +1,7 @@
 package com.lld.flightbooking;
 
-public class Flight {
+import java.util.Date;
 
-	public static void main(String[] args) {
-		System.out.println("Flight");
-	}
+public record Flight(int flightNo, Aircraft aircraft, Date depDate, Date arrivalDate, String fromLoc, String toLoc) {
 
 }
